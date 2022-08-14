@@ -5,7 +5,6 @@ export function useMediaQuery(query: string) {
 
   useEffect(() => {
     const media = window.matchMedia(query);
-    // console.log(media.matches);
     if (media.matches) {
       setMatches(media.matches);
     }
@@ -15,7 +14,6 @@ export function useMediaQuery(query: string) {
     media.addEventListener("change", listener);
     return () => media.removeEventListener("change", listener);
   }, [matches, query]);
-  console.log(matches);
   return matches;
 }
 export const useIsSmall = () => useMediaQuery("(max-width: 480px)");

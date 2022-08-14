@@ -22,7 +22,6 @@ export interface IFoodItem {
   category: string;
   qty: number;
 }
-export interface ICart {}
 
 export type IUser = {
   displayName: string | null;

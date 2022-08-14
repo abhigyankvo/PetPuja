@@ -73,9 +73,13 @@ const CreateContainer = () => {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const uploadProgress =
+        /**
+         * Can add loading progress bar
+         */
+        /**
+         * const uploadProgress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(`Upload is ${uploadProgress}% done`);
+         */
       },
       (error) => {
         console.log(error);
@@ -83,7 +87,6 @@ const CreateContainer = () => {
         dispatch(setLoading(false));
       },
       async () => {
-        console.log("Upload completed!");
         const donwloadURL = await getDownloadURL(uploadTask.snapshot.ref);
         setItem((prev) => ({
           ...prev,

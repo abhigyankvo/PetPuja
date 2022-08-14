@@ -1,4 +1,4 @@
-import { ICart, IFoodItem, IUser } from "./interfaces";
+import { IFoodItem, IUser } from "./interfaces";
 
 export type IUserState = {
   user: IUser | null;
@@ -13,5 +13,5 @@ export type IFoodItemState = {
 };
 
 export type ICartItemState = {
-  cartItems: ICart[];
+  cartItems: IFoodItem[];
 };

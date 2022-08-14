@@ -3,18 +3,28 @@ import { MdShoppingBasket } from "react-icons/md";
 import { motion } from "framer-motion";
 import { IFoodItem } from "../types/interfaces";
 import NotFound from "../assets/img/NotFound.svg";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { addItemInCart } from "../features/cartItemsSlice";
 interface IProps {
   flag: boolean;
   data: IFoodItem[];
   scrollValue?: number;
 }
 function RowContainer({ flag, data, scrollValue = 0 }: IProps) {
+  const dispatch = useAppDispatch();
+  const { cartItems } = useAppSelector((state) => state.cartItems);
   const rowContainerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (rowContainerRef.current) {
       rowContainerRef.current.scrollLeft += scrollValue;
     }
   }, [scrollValue]);
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+  const addToCart = (item: IFoodItem) => {
+    dispatch(addItemInCart(item));
+  };
   return (
     <div
       ref={rowContainerRef}
@@ -44,12 +54,14 @@ function RowContainer({ flag, data, scrollValue = 0 }: IProps) {
                 />
               </motion.div>
 
-              <motion.div
-                whileTap={{ scale: 0.75 }}
-                className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md"
-              >
-                <MdShoppingBasket className="text-white" />
-              </motion.div>
+              <div onClick={() => addToCart(item)}>
+                <motion.div
+                  whileTap={{ scale: 0.75 }}
+                  className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md"
+                >
+                  <MdShoppingBasket className="text-white" />
+                </motion.div>
+              </div>
             </div>
             <div className="w-full flex flex-col items-end justify-end ">
               <p className="text-textColor font-semibold text-base md:text-lg">

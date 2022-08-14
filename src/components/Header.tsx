@@ -4,9 +4,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import logo from "../assets/img/logo.png";
 import avatar from "../assets/img/avatar.png";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { getUser, setUserNull } from "../features/userSlice";
+import { setUserNull } from "../features/userSlice";
 import { useState, useRef, useEffect } from "react";
 import { toggleShow } from "../features/showCartSlice";
+import { setCartEmpty } from "../features/cartItemsSlice";
+import { logOut, signInWithGoogle } from "../utils/auth";
 
 const Header = () => {
   const [isMenu, setIsMenu] = useState(false);
@@ -43,13 +45,22 @@ const Header = () => {
   const handleMenu = () => {
     setIsMenu(!isMenu);
   };
-  const handleLogin = () => {
-    appDispatch(getUser());
+  const handleLogin = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const handleLogout = () => {
-    setIsMenu(false);
-    localStorage.clear();
-    appDispatch(setUserNull());
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      localStorage.clear();
+      appDispatch(setUserNull());
+      appDispatch(setCartEmpty());
+    } catch (err) {
+      console.log("Error while logging out", err);
+    }
   };
 
   return (
