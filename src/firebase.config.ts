@@ -1,21 +1,21 @@
-import {getApp,getApps,initializeApp} from 'firebase/app'
-import {getFirestore} from 'firebase/firestore'
-import {getStorage} from 'firebase/storage'
+import { getApp, getApps, initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDSE6fwPIAAvuO6kcHiNFsqKW6b1-GhvW8",
-    authDomain: "food-c85d4.firebaseapp.com",
-    databaseURL: "https://food-c85d4-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "food-c85d4",
-    storageBucket: "food-c85d4.appspot.com",
-    messagingSenderId: "785846052348",
-    appId: "1:785846052348:web:89b2e9d1dc7eeb56ffbe79"
-}
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+};
 
 //Change getApps.length to getApps().length if errors
-const app = getApps.length > 0 ? getApp() : initializeApp(firebaseConfig)
+const app = getApps.length > 0 ? getApp() : initializeApp(firebaseConfig);
 
-const firestore = getFirestore(app)
-const storage  = getStorage(app)
+const firestore = getFirestore(app);
+const storage = getStorage(app);
 
-export {app,firestore,storage}
+export { app, firestore, storage };
