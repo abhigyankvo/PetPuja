@@ -12,6 +12,7 @@ import {
   setCartEmpty,
 } from "../features/cartItemsSlice";
 import { useEffect, useState } from "react";
+import { signInWithGoogle } from "../utils/auth";
 function CartContainer() {
   const [total, setTotal] = useState(0);
   const dispatch = useAppDispatch();
@@ -28,6 +29,13 @@ function CartContainer() {
   const clearCart = () => {
     localStorage.removeItem("cart");
     dispatch(setCartEmpty());
+  };
+  const handleLogin = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <motion.div
@@ -129,6 +137,7 @@ function CartContainer() {
               </motion.button>
             ) : (
               <motion.button
+                onClick={handleLogin}
                 whileTap={{ scale: 0.95 }}
                 className="w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg"
               >
