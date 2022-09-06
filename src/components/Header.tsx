@@ -34,13 +34,11 @@ const Header = () => {
         setIsMenu(false);
       }
     };
-    document.addEventListener("mousedown", (e) => {
-      closeMenu(e);
-    });
+    document.addEventListener("mousedown", closeMenu);
     return () => {
       document.removeEventListener("mousedown", closeMenu);
     };
-  });
+  }, []);
 
   const handleMenu = () => {
     setIsMenu(!isMenu);
@@ -171,6 +169,7 @@ const Header = () => {
           <img className="w-8 object-cover" src={logo} alt="logo" />
           <p className="text-xl font-bold text-headingColor">PetPuja</p>
         </Link>
+        {/* Right menu */}
         <div ref={menuRef2} className="relative">
           <div onClick={handleMenu}>
             <motion.img
